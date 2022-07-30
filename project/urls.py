@@ -1,8 +1,11 @@
+from os import name
 from django.contrib import admin
 from django.urls import include, path, re_path
 from rest_framework import routers, permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 from core.views import AlertViewSet
 
@@ -27,6 +30,8 @@ urlpatterns = [
     path("api/docs/auth/", include("rest_framework.urls", namespace="rest_framework")),
     path("api/v1/auth/", include("dj_rest_auth.urls")),
     path("api/v1/auth/register/", include("dj_rest_auth.registration.urls")),
+    path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/v1/", include("openapi.urls")),
     path("api/v1/", include(router.urls)),
     # Swagger and Redoc
