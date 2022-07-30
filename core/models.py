@@ -18,6 +18,7 @@ class Alert(BaseModel, models.Model):
         blank=False,
         null=False,
         help_text="Whether to trigger the alert when the price reaches or falls below the set value. Otherwise when the price reaches or rises above the set value.",
+        editable=False,
     )
     triggered_on = models.DateTimeField(
         blank=True,

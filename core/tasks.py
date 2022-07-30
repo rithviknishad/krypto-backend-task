@@ -1,12 +1,10 @@
-from celery import shared_task
-
-from celery import periodic_task
+import inspect
 from datetime import datetime, timedelta
+
+from celery import periodic_task, shared_task
 from django.core.mail import send_mail
 from users.models import User
-
-import inspect
-import requests
+from utils.utils import fetch_current_prices
 
 from .models import Alert
 
@@ -32,21 +30,9 @@ def __compose_alert_mail(alert: Alert) -> str:
     }
 
 
-def __fetch_current_prices() -> dict[str, float]:
-    try:
-        res = requests.get(
-            "https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-        )
-        data = res.json()
-        current_prices = dict((e["symbol"], e["current_price"]) for e in data)
-        return current_prices
-    except:
-        return {}
-
-
 @periodic_task(run_every=timedelta(seconds=10))
 def dispatch_alerts():
-    prices = __fetch_current_prices()
+    prices = fetch_current_prices()
     # TODO: bulk_update
     alerts_to_be_dispatched = []
     for alert in Alert.objects.filter(deleted=False, triggered=False):

@@ -21,5 +21,6 @@ class AlertSerializer(serializers.HyperlinkedModelSerializer):
             "created_on",
             "deleted",
             "triggered_on",
+            "trigger_on_lte",
             "updated_on",
         )
