@@ -1,23 +1,11 @@
 from django.db import models
+from utils.models import BaseModel
 
 
-class Alert(models.Model):
+class Alert(BaseModel, models.Model):
     coin_id = models.CharField(
         max_length=255,
         blank=False,
-    )
-    created_on = models.DateTimeField(
-        blank=False,
-        null=False,
-        auto_now_add=True,
-        editable=False,
-    )
-    deleted = models.BooleanField(
-        blank=False,
-        null=False,
-        default=False,
-        editable=False,
-        help_text="Whether the record is deleted or not (soft-delete)",
     )
     trigger_value = models.DecimalField(
         max_digits=16,
@@ -29,12 +17,6 @@ class Alert(models.Model):
     triggered_on = models.DateTimeField(
         blank=True,
         null=True,
-        editable=False,
-    )
-    updated_on = models.DateTimeField(
-        blank=False,
-        null=False,
-        auto_now=True,
         editable=False,
     )
     user = models.ForeignKey(
