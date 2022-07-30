@@ -6,6 +6,7 @@ class Alert(BaseModel, models.Model):
     coin_id = models.CharField(
         max_length=255,
         blank=False,
+        help_text="example: 'btc'",
     )
     trigger_value = models.DecimalField(
         max_digits=16,
@@ -35,3 +36,7 @@ class Alert(BaseModel, models.Model):
     @property
     def triggered(self) -> bool:
         return bool(self.triggered_on)
+
+    @property
+    def status(self) -> str:
+        return (self.deleted and "DELETED") or (self.triggered and "TRIGGERED") or "CREATED"

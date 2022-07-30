@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 
 from utils.utils import fetch_current_prices
@@ -15,6 +16,14 @@ class AlertViewSet(viewsets.ModelViewSet):
         IsAuthenticated,
         permissions.Alert,
     )
+
+    @action(detail=False, url_path="create", methods=["post"])
+    def create_alert(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+    @action(detail=True, url_path="delete", methods=["get", "delete"])
+    def delete_alert(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
     def perform_create(self, serializer):
         prices = fetch_current_prices()

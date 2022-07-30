@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 from core.views import AlertViewSet
+from users.views import UserAPIView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -32,6 +33,7 @@ urlpatterns = [
     path("api/v1/auth/register/", include("dj_rest_auth.registration.urls")),
     path("api/v1/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api/v1/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("api/v1/user/", UserAPIView.as_view(), name="user"),
     path("api/v1/", include("openapi.urls")),
     path("api/v1/", include(router.urls)),
     # Swagger and Redoc
