@@ -20,7 +20,7 @@ class AlertViewSet(viewsets.ModelViewSet):
         prices = fetch_current_prices()
         serializer.save(
             user=self.request.user,
-            trigger_on_lte=self.request.data["trigger_value"] > prices[self.request.data["coin_id"]],
+            trigger_on_lte=int(self.request.data["trigger_value"]) > prices[self.request.data["coin_id"]],
         )
 
     def get_queryset(self):

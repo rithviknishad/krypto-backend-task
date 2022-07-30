@@ -14,10 +14,8 @@ class AlertSerializer(serializers.HyperlinkedModelSerializer):
             "triggered_on",
             "coin_id",
             "trigger_value",
-            "user",
         )
         read_only_fields = (
-            "user",
             "created_on",
             "deleted",
             "triggered_on",
