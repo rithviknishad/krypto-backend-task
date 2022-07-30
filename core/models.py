@@ -12,7 +12,12 @@ class Alert(BaseModel, models.Model):
         decimal_places=3,
         blank=False,
         null=False,
-        help_text="When the coin value crosses the specified `trigger_value` the alert is triggered.",
+        help_text="When the coin value crosses the specified `trigger_value` in USD, the alert is triggered.",
+    )
+    trigger_on_lte = models.BooleanField(
+        blank=False,
+        null=False,
+        help_text="Whether to trigger the alert when the price reaches or falls below the set value. Otherwise when the price reaches or rises above the set value.",
     )
     triggered_on = models.DateTimeField(
         blank=True,
@@ -25,3 +30,7 @@ class Alert(BaseModel, models.Model):
         null=False,
         on_delete=models.CASCADE,
     )
+
+    @property
+    def triggered(self) -> bool:
+        return bool(self.triggered_on)

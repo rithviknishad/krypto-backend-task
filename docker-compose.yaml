@@ -12,6 +12,7 @@ services:
       - 9000:9000
     env_file:
       - .env.dev
+      - .env # Contains SENDGRID_API_KEY, gitignored.
     depends_on:
       - redis
       - db

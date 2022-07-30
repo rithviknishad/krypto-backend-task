@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     "core.apps.CoreConfig",
     "users.apps.UsersConfig",
     "openapi.apps.OpenAPIConfig",
+    "drf_yasg",
 ]
 
 MIDDLEWARE = [
@@ -120,7 +121,7 @@ EMAIL_BACKEND = "anymail.backends.sendgrid.EmailBackend"
 ANYMAIL = {
     "SENDGRID_API_KEY": ENV_STR("SENDGRID_API_KEY"),
 }
-SERVER_EMAIL = ENV_STR("SERVER_EMAIL", "webmaster@localhost")
+SERVER_EMAIL = ENV_STR("SERVER_EMAIL", "krypto-backend-task@rithviknishad.dev")
 DEFAULT_FROM_EMAIL = ENV_STR("DEFAULT_FROM_EMAIL", SERVER_EMAIL)
 
 REST_FRAMEWORK = {
